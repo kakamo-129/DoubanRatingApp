@@ -12,7 +12,7 @@ public class Movie {
         directorName = "directorName";
         duration = "20mins per episode";
         movieName = "movieName";
-        description = "It's a sample movie:D ";
+        description = "It's a sample movie!:D";
     }
 
     Movie(int episodeNumber, String isFinished
