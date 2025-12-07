@@ -1,20 +1,21 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MovieManager {
-    private Movie[] movies;  //array
+
     private int count;  //number of the film
     private Scanner scanner;
-    private static final int MAX_MOVIES = 100;  //the max number of the film
+    ArrayList<Movie> movies =new ArrayList<>();
 
     public MovieManager() {
-        movies = new Movie[MAX_MOVIES];
+
         count = 0;
         scanner = new Scanner(System.in);
     }
 
     //add some films data in advance
 
-    private void initializeSampleMovies() {
+    void initializeSampleMovies() {
         addMovie(new Movie("The Shawshank Redemption", "Frank Darabont", 1994, 9.7,
                 "Drama/Crime", "Hope can set you free"));
 
@@ -29,16 +30,13 @@ public class MovieManager {
 
         addMovie(new Movie("Spirited Away", "Hayao Miyazaki", 2001, 9.4,
                 "Animation/Fantasy", "Best of Miyazaki, best of Joe Hisaishi"));
-        System.out.println("Done!" + count + "classic movies initialized!");
+
     }
 
-    private boolean addMovie(Movie movie){
-        if (count < MAX_MOVIES){
-            movies[count]=movie;
-            count++;
-            return true;
-        }
-        return false;
+    private void addMovie(Movie movie){
+        movies.add(movie);
+
+
     }
 
     //show the menu
@@ -70,18 +68,6 @@ public class MovieManager {
                 case 4:
                     deleteMovie();
                     break;
-                case 5:
-                    updateMovie();
-                    break;
-                case 6:
-                    showStatistics();
-                    break;
-                case 7:
-                    showRatingRanking();
-                    break;
-                case 8:
-                    exportMovieInformation();
-                    break;
                 case 0:
                     System.out.println("Thank you for using!The data has been automatically saved");
                     return;
@@ -97,16 +83,15 @@ public class MovieManager {
     public void displayAllMovies() {
         if (movies == null) {
             System.out.println("These no movie data");
-            return;
         }
         System.out.println("\n===All movie list");
-        for (int i = 0; i < movies.length; i++) {
-            System.out.println(movies[i]);
+        for (int i = 0; i < movies.size(); i++) {
+            System.out.println(movies.get(i));
         }
         System.out.println("\nEnter the sequence number to view details(0 to return)");
         int index = scanner.nextInt();
-        if (index > 0 && index <= movies.length){
-            System.out.println("\n" + movies[index-1]);
+        if (index > 0 && index <= movies.size()){
+            System.out.println("\n" + movies.get(index-1));
         }
 
     }
@@ -114,10 +99,6 @@ public class MovieManager {
     //2.add new movie
 
     private void addNewMovie() {
-        if (count >= MAX_MOVIES){
-            System.out.println("The data is full! Please delete some data first");
-            return;
-        }
         System.out.println("\n===Add new movies===");
         System.out.print("Enter the title:");
         String title = scanner.nextLine();
@@ -132,12 +113,6 @@ public class MovieManager {
         System.out.print("Enter the review");
         String review = scanner.nextLine();
         Movie newMovie = new Movie(title,director,year,rating,genre,review);
-        if (addMovie(newMovie)){
-            System.out.println("\nmovie《"+ title +"》successfully added!");
-            System.out.println("Currently,there are"+ count +"movies");
-        }else {
-            System.out.println("\nFail to add!" );
-        }
 
     }
 
@@ -165,7 +140,7 @@ public class MovieManager {
         switch (choice2) {
             case 1://title
                 for (int i = 0; i < count; i++) {
-                    if (movies[i].getTitle().toLowerCase().contains(keyword)) {//search the title which contains keyword
+                    if (movies.get(i).getTitle().toLowerCase().contains(keyword)) {//search the title which contains keyword
                         System.out.println("[#" + (i + 1) + "]" + movies.toString());
                         found = true;
                     }
@@ -174,7 +149,7 @@ public class MovieManager {
 
             case 2://director
                 for (int i = 0; i < count; i++) {
-                    if (movies[i].getDirector().toLowerCase().contains(keyword)) {
+                    if (movies.get(i).getDirector().toLowerCase().contains(keyword)) {
                         System.out.println("[#" + (i + 1) + "]" + movies.toString());
                         found = true;
                     }
@@ -183,7 +158,7 @@ public class MovieManager {
 
             case 3://genre
                 for (int i = 0; i < count; i++) {
-                    if (movies[i].getGenre().toLowerCase().contains(keyword)) {
+                    if (movies.get(i).getGenre().toLowerCase().contains(keyword)) {
                         System.out.println("[#" + (i + 1) + "]" + movies.toString());
                         found = true;
                     }
@@ -194,7 +169,7 @@ public class MovieManager {
                 try {
                     double minRating = Double.parseDouble(keyword);//set the minimum of the rating
                     for (int i = 0; i < count; i++) {
-                        if (movies[i].getRating() >= minRating) {
+                        if (movies.get(i).getRating() >= minRating) {
                             System.out.println("[#" + (i + 1) + "]" + movies.toString());
                             found = true;
                         }
@@ -209,7 +184,7 @@ public class MovieManager {
                 try {
                     int year = Integer.parseInt(keyword);
                     for (int i = 0; i < count; i++) {
-                        if (movies[i].getYear() == year) {
+                        if (movies.get(i).getYear() == year) {
                             System.out.println("[#" + (i + 1) + "]" + movies.toString());
                             found = true;
                         }
