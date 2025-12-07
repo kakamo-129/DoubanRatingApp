@@ -24,7 +24,7 @@ public class Main {
 
         } else {
             System.out.println("Wrong account,try please again");}
-
+            //I want to commit something!
             //Create movie manager and display menu
             MovieManager manager = new MovieManager();
             manager.initializeSampleMovies();
