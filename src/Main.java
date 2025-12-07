@@ -23,13 +23,14 @@ public class Main {
             }
 
         } else {
-            System.out.println("Wrong account,try please again");
+            System.out.println("Wrong account,try please again");}
 
             //Create movie manager and display menu
             MovieManager manager = new MovieManager();
+            manager.initializeSampleMovies();
             manager.showMainMenu();
 
-        }
+
 
     }
 

@@ -1,3 +1,8 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 public class Movie {
     private String title;
     private String director;
@@ -6,22 +11,21 @@ public class Movie {
     private String genre;
     private String review;
 
-    public Movie(String title,String director,int year,double rating,String genre,String review){
+    public Movie(String title, String director, int year, double rating, String genre, String review) {
         this.title = title;
         this.director = director;
-        this.rating =rating;
-        this.review =review;
+        this.rating = rating;
+        this.review = review;
         this.genre = genre;
         this.year = year;
     }
 
-
-    public Movie(){
-        this("unknown","unknown",0,0.0,"unknown","empty");
+    public Movie() {
+        this("unknown", "unknown", 0, (double)0.0F, "unknown", "empty");
     }
 
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     public void setTitle(String title) {
@@ -29,7 +33,7 @@ public class Movie {
     }
 
     public String getDirector() {
-        return director;
+        return this.director;
     }
 
     public void setDirector(String director) {
@@ -37,7 +41,7 @@ public class Movie {
     }
 
     public int getYear() {
-        return year;
+        return this.year;
     }
 
     public void setYear(int year) {
@@ -45,17 +49,18 @@ public class Movie {
     }
 
     public double getRating() {
-        return rating;
+        return this.rating;
     }
 
     public void setRating(double rating) {
-        if (rating >= 0 && rating <=10) {
+        if (rating >= (double)0.0F && rating <= (double)10.0F) {
             this.rating = rating;
         }
+
     }
 
     public String getGenre() {
-        return genre;
+        return this.genre;
     }
 
     public void setGenre(String genre) {
@@ -63,28 +68,26 @@ public class Movie {
     }
 
     public String getReview() {
-        return review;
+        return this.review;
     }
 
     public void setReview(String review) {
         this.review = review;
     }
 
-    @Override
     public String toString() {
-        return String.format("《%s》(%d) - director:%s - rating:%.1f",title,year,director,rating);
+        return String.format("《%s》(%d) - director:%s - rating:%.1f", this.title, this.year, this.director, this.rating);
     }
-
-//Rating level
 
     public String getRatingLevel() {
-        if (rating >= 9.0) return "Masterpiece";
-        else if (rating >= 8.0) return "Excellent";
-        else if (rating >= 7.0) return "Good";
-        else if (rating >= 6.0) return "Average";
-        else return "Poor";
+        if (this.rating >= (double)9.0F) {
+            return "Masterpiece";
+        } else if (this.rating >= (double)8.0F) {
+            return "Excellent";
+        } else if (this.rating >= (double)7.0F) {
+            return "Good";
+        } else {
+            return this.rating >= (double)6.0F ? "Average" : "Poor";
+        }
     }
-
 }
-
-
