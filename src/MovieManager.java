@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -6,9 +7,11 @@ public class MovieManager {
     private int count;  //number of the film
     private Scanner scanner;
     private static final int MAX_MOVIES = 100;  //the max number of the film
-
+    ArrayList<Movie> addMovie =new ArrayList<>();
     public MovieManager() {
         movies = new Movie[MAX_MOVIES];
+
+
         count = 0;
         scanner = new Scanner(System.in);
     }
@@ -33,13 +36,8 @@ public class MovieManager {
         System.out.println("Done!" + count + "classic movies initialized!");
     }
 
-    private boolean addMovie(Movie movie){
-        if (count < MAX_MOVIES){
-            movies[count]=movie;
-            count++;
-            return true;
-        }
-        return false;
+    private void addMovie(Movie movie){
+            addMovie.add(movie);
     }
 
     //show the menu
@@ -95,27 +93,20 @@ public class MovieManager {
     public void displayAllMovies() {
         if (movies == null) {
             System.out.println("These no movie data");
-            return;
         }
         System.out.println("\n===All movie list");
-        for (int i = 0; i < movies.length; i++) {
-            System.out.println(movies[i]);
+        for (int i = 0; i < addMovie.size(); i++) {
+            System.out.println(addMovie.get(i));
         }
         System.out.println("\nEnter the sequence number to view details(0 to return)");
-        int index1 = scanner.nextInt();
-        if (index1 > 0 && index1 <= movies.length){
-            System.out.println("\n" + movies[index1-1]);
+        int index = scanner.nextInt();
+        if (index > 0 && index <= addMovie.size()) {
+            System.out.println("\n" + addMovie.get(index - 1));
         }
-
     }
-
     //2.add new movie
 
     private void addNewMovie() {
-        if (count >= MAX_MOVIES){
-            System.out.println("The data is full! Please delete some data first");
-            return;
-        }
         System.out.println("\n===Add new movies===");
         System.out.print("Enter the title:");
         String title = scanner.nextLine();
@@ -129,15 +120,7 @@ public class MovieManager {
         String genre = scanner.nextLine();
         System.out.print("Enter the review");
         String review = scanner.nextLine();
-        Movie newMovie = new Movie(title,director,year,rating,genre,review);
-        if (addMovie(newMovie)){
-            System.out.println("\nmovie《"+ title +"》successfully added!");
-            System.out.println("Currently,there are"+ count +"movies");
-        }else {
-            System.out.println("\nFail to add!" );
-        }
-
-    }
+        Movie newMovie = new Movie(title,director,year,rating,genre,review);}
 
     //3.search movies
 
