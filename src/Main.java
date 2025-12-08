@@ -29,7 +29,7 @@ public class Main {
             MovieManager manager = new MovieManager();
             manager.initializeSampleMovies();
             manager.showMainMenu();
-
+            //test messages:嗨害嗨，来了奥
 
 
     }
