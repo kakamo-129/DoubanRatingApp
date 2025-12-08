@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class MovieManager {
@@ -299,6 +300,46 @@ public class MovieManager {
             System.out.println("Invalid sequence!");
         }
     }
+    private void showRatingRanking() {
+        if (count == 0) {
+            System.out.println("No movies to rank!");
+            return;
+        }
+
+
+        Movie[] rankedMovies = new Movie[count];
+        System.arraycopy(movies, 0, rankedMovies, 0, count);
+
+
+        Arrays.sort(rankedMovies, (m1, m2) -> {
+
+            return Double.compare(m2.getRating(), m1.getRating());
+        });
+
+
+        System.out.println("\n=== Movie Rating Ranking (High to Low) ===");
+        for (int i = 0; i < rankedMovies.length; i++) {
+            Movie movie = rankedMovies[i];
+            System.out.printf(
+                    "[%d] %s (Rating: %.1f) - Director: %s, Year: %d%n",
+                    i + 1,
+                    movie.getTitle(),
+                    movie.getRating(),
+                    movie.getDirector(),
+                    movie.getYear()
+            );
+        }
+    }
+    private void showStatistics() {
+
+
+        // Iterate through the movies collection and print the full data of all movies
+        System.out.println("Complete information of all movies：");
+        for (Movie movie : movies) {
+            System.out.println(movie);
+        }
+    }
+
 
 }
 
