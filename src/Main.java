@@ -27,7 +27,7 @@ public class Main {
             //haha,i made a commit
             //Create movie manager and display menu
             MovieManager manager = new MovieManager();
-            manager.initializeSampleMovies();
+            manager.initializeSimpleMovies();
             manager.showMainMenu();
             //test messages:嗨害嗨，来了奥
 
