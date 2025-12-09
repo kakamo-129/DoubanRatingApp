@@ -1,7 +1,6 @@
 //
 // Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
+// (powered by Fer
 
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -92,7 +91,7 @@ public class Movie {
         } else if (this.rating >= 7.0) {
             return 3;
         } else {
-            return this.rating >= 6.0 ? 4 : 5;
+            return this.rating >= 6.0 ? 2 : 1;
         }
 
     }
