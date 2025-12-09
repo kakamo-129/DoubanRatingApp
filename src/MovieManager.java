@@ -5,7 +5,8 @@ import java.util.Scanner;
 public class MovieManager {//array
     private Scanner scanner;
     private static final int MAX_MOVIES = 100;  //the max number of the film
-    ArrayList<Movie> addMovie =new ArrayList<>();
+    ArrayList<Movie> addMovie = new ArrayList<>();
+
     public MovieManager() {
         scanner = new Scanner(System.in);
     }
@@ -29,8 +30,8 @@ public class MovieManager {//array
                 "Animation/Fantasy", "Best of Miyazaki, best of Joe Hisaishi"));
     }
 
-    private void addMovie(Movie movie){
-            addMovie.add(movie);
+    private void addMovie(Movie movie) {
+        addMovie.add(movie);
     }
 
     //show the menu
@@ -43,9 +44,8 @@ public class MovieManager {//array
             System.out.println("3.Search movies");
             System.out.println("4.Delete movies");
             System.out.println("5.Modify movie information");
-            System.out.println("6.Movie statistics information");
+            System.out.println("6.Show movie data by ranking level");
             System.out.println("7.Rating ranking list");
-            System.out.println("8.Export movie information");
             System.out.println("0.Log out");
             System.out.println("Please select an operation");
             int choice1 = scanner.nextInt();
@@ -90,7 +90,7 @@ public class MovieManager {//array
         }
         System.out.println("\n===All movie list");
         for (int i = 0; i < addMovie.size(); i++) {
-            System.out.println(i+1 + "." +"《"+ addMovie.get(i).getTitle()+"》");
+            System.out.println(i + 1 + "." + "《" + addMovie.get(i).getTitle() + "》");
         }
         System.out.println("\nEnter the sequence number to view details(0 to return)");
         int index = scanner.nextInt();
@@ -98,13 +98,14 @@ public class MovieManager {//array
             System.out.println("\n" + addMovie.get(index - 1));
         }
     }
+
     //2.add new movie
 
     private void addNewMovie() {
         System.out.println("\n===Add new movies===");
         System.out.print("Enter the title:");
         String title1 = scanner.nextLine();
-        System.out.print("Enter the director:" );
+        System.out.print("Enter the director:");
         String director = scanner.nextLine();
         System.out.print("Enter the year:");
         int year = scanner.nextInt();
@@ -116,14 +117,14 @@ public class MovieManager {//array
         String genre = scanner.nextLine();
         System.out.print("Enter the review:");
         String review = scanner.nextLine();
-        Movie newMovie = new Movie(title1,director,year,rating,genre,review);
+        Movie newMovie = new Movie(title1, director, year, rating, genre, review);
         addMovie.add(newMovie);
 
     }
 
     //3.search movies
 
-    private void searchMovie(){
+    private void searchMovie() {
         System.out.println("\n╔════════════════════════════════════════════════════╗");
         System.out.println("║                    Search movie                     ║");
         System.out.println("╠════════════════════════════════════════════════════╣");
@@ -136,7 +137,7 @@ public class MovieManager {//array
         System.out.println("╚════════════════════════════════════════════════════╝");
         System.out.println("Please choose your search method");
         int choice2 = scanner.nextInt();
-        if (choice2 == 0)return;
+        if (choice2 == 0) return;
         System.out.print("\nPlease enter the keyword");
         String keyword = scanner.nextLine().toLowerCase();
         System.out.println("\nResult:");
@@ -206,80 +207,80 @@ public class MovieManager {//array
 
         //if there is no movie data relative to the keyword
 
-        if(!found){
+        if (!found) {
             System.out.println("No relevant movies here");
         }
     }
 
     //4.delete movie data
 
-    private void deleteMovie(){
+    private void deleteMovie() {
         displayAllMovies();
-        if (addMovie.size() == 0)return;
+        if (addMovie.size() == 0) return;
         System.out.print("\nPlease enter the sequence number of the movie you want to delete(0 to cancel):");
         int index2 = scanner.nextInt();
         scanner.nextLine();
-        if (index2 == 0)return;
-        if (index2 > 0 && index2 <= addMovie.size()){
-            Movie movie = addMovie.get(index2-1);
-            System.out.println("\nAre you sure to delete 《" + movie.getTitle() +"》?(Input 'y' to confirm,'other keys' to cancel");
+        if (index2 == 0) return;
+        if (index2 > 0 && index2 <= addMovie.size()) {
+            Movie movie = addMovie.get(index2 - 1);
+            System.out.println("\nAre you sure to delete 《" + movie.getTitle() + "》?(Input 'y' to confirm,'other keys' to cancel");
             String confirm = scanner.nextLine();
-            if (confirm.equalsIgnoreCase("y")){
-                for (int i = index2-1; i < addMovie.size()-1; i++) {
-                    addMovie.set(i,addMovie.get(i+1));
+            if (confirm.equalsIgnoreCase("y")) {
+                for (int i = index2 - 1; i < addMovie.size() - 1; i++) {
+                    addMovie.set(i, addMovie.get(i + 1));
                 }
-                addMovie.remove(addMovie.size()-1);
+                addMovie.remove(addMovie.size() - 1);
                 System.out.println("Delete successfully!");
-            }else {
+            } else {
                 System.out.println("Deleted cancelled!");
             }
-        }else{
+        } else {
             System.out.println("Invalid serial number!");
         }
     }
 
     //5.Modify movie data
 
-    private void updateMovie(){
+    private void updateMovie() {
         displayAllMovies();
-        if (addMovie.size() == 0)return;
+        if (addMovie.size() == 0) return;
         System.out.println("\nPlease enter the sequence(0 to cancel):");
         int index3 = scanner.nextInt();
         scanner.nextLine();
-        if (index3 == 0)return;
-        if (index3 > 0 && index3 <= addMovie.size()){
-            Movie movie = addMovie.get(index3-1);
+        if (index3 == 0) return;
+        if (index3 > 0 && index3 <= addMovie.size()) {
+            Movie movie = addMovie.get(index3 - 1);
             System.out.println("\nCurrent movie data:");
-            System.out.println(addMovie.get(index3-1));
+            System.out.println(addMovie.get(index3 - 1));
             System.out.println("\nPlease enter new data(Press Enter to keep unchanged):");
-            System.out.print("Movie title ["+ movie.getTitle() +"]:");
+            System.out.print("Movie title [" + movie.getTitle() + "]:");
             String title2 = scanner.nextLine();
-            if (title2!=null);//enter new title
+            if (title2 != null) ;//enter new title
             movie.setTitle(title2);
-            System.out.print("Director ["+ movie.getDirector() +"]:");
+            System.out.print("Director [" + movie.getDirector() + "]:");
             String director = scanner.nextLine();
-            if (director!=null);//enter new director
+            if (director != null) ;//enter new director
             movie.setDirector(director);
-            System.out.print("Year["+movie.getYear()+"]:");
+            System.out.print("Year[" + movie.getYear() + "]:");
             String year = scanner.nextLine();
-            if (year!=null){//enter new year
+            if (year != null) {//enter new year
                 try {
                     movie.setYear(Integer.parseInt(year)); //change String into Int
-                }catch (NumberFormatException e){//check if the year format correct(Int)
+                } catch (NumberFormatException e) {//check if the year format correct(Int)
                     System.out.println("Incorrect year format , remains unchanged ");
                 }
             }
-            System.out.println("Movie genre["+movie.getGenre()+"]:");
+            System.out.println("Movie genre[" + movie.getGenre() + "]:");
             String genre = scanner.nextLine();
-            if (genre!=null);
+            if (genre != null) ;
             movie.setGenre(genre);
-            System.out.print("Review["+movie.getReview()+"]:");
+            System.out.print("Review[" + movie.getReview() + "]:");
             String review = scanner.nextLine();
-            if (review!=null);
+            if (review != null) ;
             movie.setReview(review);
             System.out.println("\nMovie data update successfully");
-            System.out.println(addMovie.get(index3-1));
-        }else{
+            System.out.println(addMovie.get(index3 - 1));
+        } else {
             System.out.println("Invalid sequence!");
         }
     }
@@ -300,25 +301,27 @@ public class MovieManager {//array
         System.out.print("\nPlease chose the ranking level: ");
         int choice3 = scanner.nextInt();
         scanner.nextLine();
-        if (choice3 ==  0)return;
-        System.out.println("=".repeat(50));
-        boolean found = false;
+        if (choice3 == 0) return;
+        System.out.println("=".repeat(25));
         for (int i = 0; i < addMovie.size(); i++) {
-            Movie movie = addMovie.get(i);
-            double rating = movie.getRating();
-            String rankingLevel = movie.getRatingLevel(rating);
-            System.out.println("[#"+ (i+1) +"]"+movie.toString());
-            found = true;
+            Movie movie = new Movie();
+            double rating = addMovie.get(i).getRating();
+            int Level = movie.getRatingLevel(rating);
+            if (Level == choice3) {
+                System.out.println("[#" + (i + 1) + "]" + movie.toString());
+            } else {
+                System.out.println("There is no such movie");
+                System.out.println("=".repeat(25));
+            }
+            return;
         }
-       if (!found){
-           System.out.println("There is no such movie");
-       }
+
     }
 
 
-    //7.rank the movie by rating
+        //7.rank the movie by rating
 
-    private void showRatingRanking() {
+    private void showRatingRanking () {
         if (addMovie.size() == 0) {
             System.out.println("No movies to rank!");
             return;
@@ -344,14 +347,12 @@ public class MovieManager {//array
                     movie.getDirector(),
                     movie.getYear()
             );
-        }
+            }
     }
 
 
 
 
+
 }
-
-
-
 

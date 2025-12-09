@@ -3,6 +3,9 @@
 // (powered by FernFlower decompiler)
 //
 
+import java.util.ArrayList;
+import java.util.logging.Level;
+
 public class Movie {
     private String title;
     private String director;
@@ -14,14 +17,14 @@ public class Movie {
     public Movie(String title, String director, int year, double rating, String genre, String review) {
         this.title = title;
         this.director = director;
-        this.rating = rating;
-        this.review = review;
-        this.genre = genre;
         this.year = year;
+        this.rating = rating;
+        this.genre = genre;
+        this.review = review;
     }
 
     public Movie() {
-        this("unknown", "unknown", 0, (double)0.0F, "unknown", "empty");
+        this("unknown", "unknown", 0, (double) 0.0F, "unknown", "empty");
     }
 
     public String getTitle() {
@@ -52,8 +55,9 @@ public class Movie {
         return this.rating;
     }
 
+
     public void setRating(double rating) {
-        if (rating >= (double)0.0F && rating <= (double)10.0F) {
+        if (rating >= (double) 0.0F && rating <= (double) 10.0F) {
             this.rating = rating;
         }
 
@@ -79,15 +83,17 @@ public class Movie {
         return String.format("《%s》(%d) - director:%s - rating:%.1f", this.title, this.year, this.director, this.rating);
     }
 
-    public String getRatingLevel(double rating) {
-        if (this.rating >= (double)9.0F) {
-            return "Masterpiece";
-        } else if (this.rating >= (double)8.0F) {
-            return "Excellent";
-        } else if (this.rating >= (double)7.0F) {
-            return "Good";
+
+    public int getRatingLevel(double rating) {
+        if (this.rating >= 9.0) {
+            return 1;
+        } else if (this.rating >= 8.0) {
+            return 2;
+        } else if (this.rating >= 7.0) {
+            return 3;
         } else {
-            return this.rating >= (double)6.0F ? "Average" : "Poor";
+            return this.rating >= 6.0 ? 4 : 5;
         }
+
     }
 }
