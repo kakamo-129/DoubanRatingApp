@@ -2,15 +2,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class MovieManager {
-    private Movie[] movies;  //array
-    private int count;  //number of the film
+public class MovieManager {//array
     private Scanner scanner;
     private static final int MAX_MOVIES = 100;  //the max number of the film
     ArrayList<Movie> addMovie =new ArrayList<>();
     public MovieManager() {
-        movies = new Movie[MAX_MOVIES];
-        count = 0;
         scanner = new Scanner(System.in);
     }
 
@@ -31,12 +27,10 @@ public class MovieManager {
 
         addMovie(new Movie("Spirited Away", "Hayao Miyazaki", 2001, 9.4,
                 "Animation/Fantasy", "Best of Miyazaki, best of Joe Hisaishi"));
-        System.out.println("Done!" + count + "classic movies initialized!");
     }
 
     private void addMovie(Movie movie){
             addMovie.add(movie);
-            count++;
     }
 
     //show the menu
@@ -91,12 +85,12 @@ public class MovieManager {
     //1.display movie data
 
     public void displayAllMovies() {
-        if (movies == null) {
+        if (addMovie == null) {
             System.out.println("These no movie data");
         }
         System.out.println("\n===All movie list");
         for (int i = 0; i < addMovie.size(); i++) {
-            System.out.println(i+1 + "." + addMovie.get(i));
+            System.out.println(i+1 + "." +"《"+ addMovie.get(i).getTitle()+"》");
         }
         System.out.println("\nEnter the sequence number to view details(0 to return)");
         int index = scanner.nextInt();
@@ -149,27 +143,27 @@ public class MovieManager {
         boolean found = false;
         switch (choice2) {
             case 1://title
-                for (int i = 0; i < count; i++) {
-                    if (movies[i].getTitle().toLowerCase().contains(keyword)) {//search the title which contains keyword
-                        System.out.println("[#" + (i + 1) + "]" + movies.toString());
+                for (int i = 0; i < addMovie.size(); i++) {
+                    if (addMovie.get(i).getTitle().toLowerCase().contains(keyword)) {//search the title which contains keyword
+                        System.out.println("[#" + (i + 1) + "]" + addMovie.toString());
                         found = true;
                     }
                 }
                 break;
 
             case 2://director
-                for (int i = 0; i < count; i++) {
-                    if (movies[i].getDirector().toLowerCase().contains(keyword)) {
-                        System.out.println("[#" + (i + 1) + "]" + movies.toString());
+                for (int i = 0; i < addMovie.size(); i++) {
+                    if (addMovie.get(i).getDirector().toLowerCase().contains(keyword)) {
+                        System.out.println("[#" + (i + 1) + "]" + addMovie.toString());
                         found = true;
                     }
                 }
                 break;
 
             case 3://genre
-                for (int i = 0; i < count; i++) {
-                    if (movies[i].getGenre().toLowerCase().contains(keyword)) {
-                        System.out.println("[#" + (i + 1) + "]" + movies.toString());
+                for (int i = 0; i < addMovie.size(); i++) {
+                    if (addMovie.get(i).getGenre().toLowerCase().contains(keyword)) {
+                        System.out.println("[#" + (i + 1) + "]" + addMovie.toString());
                         found = true;
                     }
                 }
@@ -178,9 +172,9 @@ public class MovieManager {
             case 4://rating
                 try {
                     double minRating = Double.parseDouble(keyword);//set the minimum of the rating
-                    for (int i = 0; i < count; i++) {
-                        if (movies[i].getRating() >= minRating) {
-                            System.out.println("[#" + (i + 1) + "]" + movies.toString());
+                    for (int i = 0; i < addMovie.size(); i++) {
+                        if (addMovie.get(i).getRating() >= minRating) {
+                            System.out.println("[#" + (i + 1) + "]" + addMovie.toString());
                             found = true;
                         }
                     }
@@ -193,9 +187,9 @@ public class MovieManager {
             case 5://year
                 try {
                     int year = Integer.parseInt(keyword);
-                    for (int i = 0; i < count; i++) {
-                        if (movies[i].getYear() == year) {
-                            System.out.println("[#" + (i + 1) + "]" + movies.toString());
+                    for (int i = 0; i < addMovie.size(); i++) {
+                        if (addMovie.get(i).getYear() == year) {
+                            System.out.println("[#" + (i + 1) + "]" + addMovie.toString());
                             found = true;
                         }
                     }
@@ -220,21 +214,20 @@ public class MovieManager {
 
     private void deleteMovie(){
         displayAllMovies();
-        if (count == 0)return;
+        if (addMovie.size() == 0)return;
         System.out.print("\nPlease enter the sequence number of the movie you want to delete(0 to cancel):");
         int index2 = scanner.nextInt();
         scanner.nextLine();
         if (index2 == 0)return;
-        if (index2 > 0 && index2 <= count){
+        if (index2 > 0 && index2 <= addMovie.size()){
             Movie movie = addMovie.get(index2-1);
             System.out.println("\nAre you sure to delete 《" + movie.getTitle() +"》?(Input 'y' to confirm,'other keys' to cancel");
             String confirm = scanner.nextLine();
             if (confirm.equalsIgnoreCase("y")){
-                for (int i = index2-1; i < count-1; i++) {
+                for (int i = index2-1; i < addMovie.size()-1; i++) {
                     addMovie.set(i,addMovie.get(i+1));
                 }
-                addMovie.set(count-1,null);
-                count--;
+                addMovie.remove(addMovie.size()-1);
                 System.out.println("Delete successfully!");
             }else {
                 System.out.println("Deleted cancelled!");
@@ -248,12 +241,12 @@ public class MovieManager {
 
     private void updateMovie(){
         displayAllMovies();
-        if (count == 0)return;
+        if (addMovie.size() == 0)return;
         System.out.println("\nPlease enter the sequence(0 to cancel):");
         int index3 = scanner.nextInt();
         scanner.nextLine();
         if (index3 == 0)return;
-        if (index3 > 0 && index3 <= count){
+        if (index3 > 0 && index3 <= addMovie.size()){
             Movie movie = addMovie.get(index3-1);
             System.out.println("\nCurrent movie data:");
             System.out.println(addMovie.get(index3-1));
@@ -284,7 +277,7 @@ public class MovieManager {
             if (review!=null);
             movie.setReview(review);
             System.out.println("\nMovie data update successfully");
-            System.out.println(movies[index3-1]);
+            System.out.println(addMovie.get(index3-1));
         }else{
             System.out.println("Invalid sequence!");
         }
@@ -309,8 +302,8 @@ public class MovieManager {
         if (choice3 ==  0)return;
         System.out.println("=".repeat(50));
         boolean found = false;
-        for (int i = 0; i < count; i++) {
-            Movie movie = movies[i];
+        for (int i = 0; i < addMovie.size(); i++) {
+            Movie movie = addMovie.get(i);
             double rating = movie.getRating();
             String rankingLevel = movie.getRatingLevel(rating);
             System.out.println("[#"+ (i+1) +"]"+movie.toString());
@@ -325,13 +318,13 @@ public class MovieManager {
     //7.rank the movie by rating
 
     private void showRatingRanking() {
-        if (count == 0) {
+        if (addMovie.size() == 0) {
             System.out.println("No movies to rank!");
             return;
         }
 
-        Movie[] rankedMovies = new Movie[count];
-        System.arraycopy(movies, 0, rankedMovies, 0, count);
+        Movie[] rankedMovies = new Movie[addMovie.size()];
+        System.arraycopy(addMovie, 0, rankedMovies, 0, addMovie.size());
 
 
         Arrays.sort(rankedMovies, (m1, m2) -> {
