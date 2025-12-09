@@ -80,19 +80,19 @@ public class Movie {
     }
 
     public String toString() {
-        return String.format("《%s》(%d) - director:%s - rating:%.1f", this.title, this.year, this.director, this.rating);
+        return String.format("\n《%s》(%d) - director:%s - rating:%.1f", this.title, this.year, this.director, this.rating);
     }
 
 
     public int getRatingLevel(double rating) {
         if (this.rating >= 9.0) {
-            return 1;
+            return 5;
         } else if (this.rating >= 8.0) {
-            return 2;
+            return 4;
         } else if (this.rating >= 7.0) {
             return 3;
         } else {
-            return this.rating >= 6.0 ? 4 : 5;
+            return this.rating >= 6.0 ? 2 : 1;
         }
 
     }

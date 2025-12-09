@@ -136,6 +136,7 @@ public class MovieManager {//array
         System.out.println("╚════════════════════════════════════════════════════╝");
         System.out.println("Please choose your search method");
         int choice2 = scanner.nextInt();
+        scanner.nextLine();
         if (choice2 == 0) return;
         System.out.print("\nPlease enter the keyword");
         String keyword = scanner.nextLine().toLowerCase();
@@ -146,69 +147,97 @@ public class MovieManager {//array
             case 1://title
                 for (int i = 0; i < addMovie.size(); i++) {
                     if (addMovie.get(i).getTitle().toLowerCase().contains(keyword)) {//search the title which contains keyword
-                        System.out.println("[#" + (i + 1) + "]" + addMovie.toString());
+                        System.out.println("[" + (i + 1) + "]" + addMovie.get(i));
                         found = true;
                     }
                 }
+                if (!found) {
+                    System.out.println("No relevant movies here"); //if there is no movie data relative to the keyword
+                    return;
+                }
+                System.out.println("=".repeat(50));
                 break;
 
             case 2://director
                 for (int i = 0; i < addMovie.size(); i++) {
                     if (addMovie.get(i).getDirector().toLowerCase().contains(keyword)) {
-                        System.out.println("[#" + (i + 1) + "]" + addMovie.toString());
+                        System.out.println("[" + (i + 1) + "]" + addMovie.get(i));
                         found = true;
                     }
                 }
+                if (!found) {
+                    System.out.println("No relevant movies here"); //if there is no movie data relative to the keyword
+                    return;
+                }
+                System.out.println("=".repeat(50));
                 break;
 
             case 3://genre
                 for (int i = 0; i < addMovie.size(); i++) {
                     if (addMovie.get(i).getGenre().toLowerCase().contains(keyword)) {
-                        System.out.println("[#" + (i + 1) + "]" + addMovie.toString());
+                        System.out.println("[" + (i + 1) + "]" + addMovie.get(i));
                         found = true;
                     }
                 }
+                if (!found) {
+                    System.out.println("No relevant movies here"); //if there is no movie data relative to the keyword
+                    return;
+                }
+                System.out.println("=".repeat(50));
                 break;
 
             case 4://rating
-                try {
-                    double minRating = Double.parseDouble(keyword);//set the minimum of the rating
-                    for (int i = 0; i < addMovie.size(); i++) {
-                        if (addMovie.get(i).getRating() >= minRating) {
-                            System.out.println("[#" + (i + 1) + "]" + addMovie.toString());
-                            found = true;
+                boolean judgement1 = false;
+                while (!judgement1) {
+                    try {
+                        double minRating = Double.parseDouble(keyword);//set the minimum of the rating
+                        for (int i = 0; i < addMovie.size(); i++) {
+                            if (addMovie.get(i).getRating() >= minRating) {
+                                System.out.println("[" + (i + 1) + "]" + addMovie.get(i));
+                                found = true;
+                                judgement1 = true;
+                            }
                         }
+                    } catch (NumberFormatException e) {//check whether the input rating data is correct
+                        System.out.println("Please enter the correct rating number!");
+                        keyword = scanner.nextLine();
                     }
-                } catch (NumberFormatException e) {//check whether the input rating data is correct
-                    System.out.println("Please enter the correct rating number!");
-                    return;
+                    if (!found) {
+                        System.out.println("No relevant movies here"); //if there is no movie data relative to the keyword
+                        return;
+                    }
+                    System.out.println("=".repeat(50));
                 }
                 break;
 
             case 5://year
-                try {
-                    int year = Integer.parseInt(keyword);
-                    for (int i = 0; i < addMovie.size(); i++) {
-                        if (addMovie.get(i).getYear() == year) {
-                            System.out.println("[#" + (i + 1) + "]" + addMovie.toString());
-                            found = true;
+                boolean judgement2 = false;
+                while (!judgement2) {
+                    try {
+                        int year = Integer.parseInt(keyword);
+                        for (int i = 0; i < addMovie.size(); i++) {
+                            if (addMovie.get(i).getYear() == year) {
+                                System.out.println("[" + (i + 1) + "]" + addMovie.get(i));
+                                found = true;
+                                judgement2 = true;
+                            }
+
                         }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Please enter the correct year number!(0 to cancel)");//check whether the input year data is correct
+                        keyword = scanner.nextLine();
                     }
-                } catch (NumberFormatException e) {
-                    System.out.println("Please enter the correct year number!");//check whether the input year data is correct
-                    return;
+                    if (!found) {
+                        System.out.println("No relevant movies here"); //if there is no movie data relative to the keyword
+                        return;
+                    }
+                    System.out.println("=".repeat(50));
                 }
-                break;
-            default:
-                System.out.println("Ineffective choice");
-                return;
+            break;
+
+
         }
 
-        //if there is no movie data relative to the keyword
-
-        if (!found) {
-            System.out.println("No relevant movies here");
-        }
     }
 
     //4.delete movie data
@@ -246,7 +275,7 @@ public class MovieManager {//array
         System.out.println("\nPlease enter the sequence(0 to cancel):");
         int index3 = scanner.nextInt();
         scanner.nextLine();
-        if (index3 == 0) return;
+        if (index3 == 0 || index3 >=6) return;
         if (index3 > 0 && index3 <= addMovie.size()) {
             Movie movie = addMovie.get(index3 - 1);
             System.out.println("\nCurrent movie data:");
@@ -260,16 +289,27 @@ public class MovieManager {//array
             String director = scanner.nextLine();
             if (director != null) ;//enter new director
             movie.setDirector(director);
-            System.out.print("Year[" + movie.getYear() + "]:");
+            System.out.print("Year[" + movie.getYear() + "](1900-2025):");
             String year = scanner.nextLine();
             if (year != null) {//enter new year
-                try {
-                    movie.setYear(Integer.parseInt(year)); //change String into Int
-                } catch (NumberFormatException e) {//check if the year format correct(Int)
-                    System.out.println("Incorrect year format , remains unchanged ");
+                boolean judgement = false;
+                while (!judgement) {
+                    try {
+                        int Validyear = Integer.parseInt(year);//change String into Int
+                        if (Validyear >= 1900 && Validyear <= 2025) {
+                            movie.setYear(Validyear);
+                            judgement = true;
+                        }else {
+                            System.out.println("Year should between 1900 and 2025!Please re-enter:");
+                            year = scanner.nextLine();
+                        }
+                    } catch (NumberFormatException e) {//check if the year format correct(Int)
+                        System.out.println("Incorrect year format , please re-enter: ");
+                        year = scanner.nextLine();
+                    }
                 }
             }
-            System.out.println("Movie genre[" + movie.getGenre() + "]:");
+            System.out.print("Movie genre[" + movie.getGenre() + "]:");
             String genre = scanner.nextLine();
             if (genre != null) ;
             movie.setGenre(genre);
@@ -307,12 +347,13 @@ public class MovieManager {//array
             double rating = addMovie.get(i).getRating();
             int Level = movie.getRatingLevel(rating);
             if (Level == choice3) {
-                System.out.println("[#" + (i + 1) + "]" + movie.toString());
+                System.out.println("[" + (i + 1) + "]" + addMovie.get(i) );
             } else {
                 System.out.println("There is no such movie");
                 System.out.println("=".repeat(25));
+                return;
             }
-            return;
+
         }
 
     }
