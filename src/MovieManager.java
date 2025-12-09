@@ -10,8 +10,6 @@ public class MovieManager {
     ArrayList<Movie> addMovie =new ArrayList<>();
     public MovieManager() {
         movies = new Movie[MAX_MOVIES];
-
-
         count = 0;
         scanner = new Scanner(System.in);
     }
@@ -38,6 +36,7 @@ public class MovieManager {
 
     private void addMovie(Movie movie){
             addMovie.add(movie);
+            count++;
     }
 
     //show the menu
@@ -56,6 +55,7 @@ public class MovieManager {
             System.out.println("0.Log out");
             System.out.println("Please select an operation");
             int choice1 = scanner.nextInt();
+            scanner.nextLine();
             switch (choice1) {
                 case 1:
                     displayAllMovies();
@@ -73,7 +73,7 @@ public class MovieManager {
                     updateMovie();
                     break;
                 case 6:
-                    showStatistics();
+                    showDataByRankingLevel();
                     break;
                 case 7:
                     showRatingRanking();
@@ -96,7 +96,7 @@ public class MovieManager {
         }
         System.out.println("\n===All movie list");
         for (int i = 0; i < addMovie.size(); i++) {
-            System.out.println(addMovie.get(i));
+            System.out.println(i+1 + "." + addMovie.get(i));
         }
         System.out.println("\nEnter the sequence number to view details(0 to return)");
         int index = scanner.nextInt();
@@ -109,18 +109,22 @@ public class MovieManager {
     private void addNewMovie() {
         System.out.println("\n===Add new movies===");
         System.out.print("Enter the title:");
-        String title = scanner.nextLine();
+        String title1 = scanner.nextLine();
         System.out.print("Enter the director:" );
         String director = scanner.nextLine();
         System.out.print("Enter the year:");
         int year = scanner.nextInt();
+        scanner.nextLine();
         System.out.print("Enter the rating(0-10):");
         double rating = scanner.nextDouble();
-        System.out.print("Enter the genre");
+        scanner.nextLine();
+        System.out.print("Enter the genre:");
         String genre = scanner.nextLine();
-        System.out.print("Enter the review");
+        System.out.print("Enter the review:");
         String review = scanner.nextLine();
-        Movie newMovie = new Movie(title,director,year,rating,genre,review);}
+        Movie newMovie = new Movie(title1,director,year,rating,genre,review);
+        addMovie.add(newMovie);
+    }
 
     //3.search movies
 
@@ -219,16 +223,17 @@ public class MovieManager {
         if (count == 0)return;
         System.out.print("\nPlease enter the sequence number of the movie you want to delete(0 to cancel):");
         int index2 = scanner.nextInt();
+        scanner.nextLine();
         if (index2 == 0)return;
         if (index2 > 0 && index2 <= count){
-            Movie movie = movies[index2-1];
+            Movie movie = addMovie.get(index2-1);
             System.out.println("\nAre you sure to delete 《" + movie.getTitle() +"》?(Input 'y' to confirm,'other keys' to cancel");
             String confirm = scanner.nextLine();
             if (confirm.equalsIgnoreCase("y")){
                 for (int i = index2-1; i < count-1; i++) {
-                    movies[i]=movies[i+1];
+                    addMovie.set(i,addMovie.get(i+1));
                 }
-                movies[count-1] = null;
+                addMovie.set(count-1,null);
                 count--;
                 System.out.println("Delete successfully!");
             }else {
@@ -246,16 +251,17 @@ public class MovieManager {
         if (count == 0)return;
         System.out.println("\nPlease enter the sequence(0 to cancel):");
         int index3 = scanner.nextInt();
+        scanner.nextLine();
         if (index3 == 0)return;
         if (index3 > 0 && index3 <= count){
-            Movie movie = movies[index3-1];
+            Movie movie = addMovie.get(index3-1);
             System.out.println("\nCurrent movie data:");
-            System.out.println(movies[index3-1]);
+            System.out.println(addMovie.get(index3-1));
             System.out.println("\nPlease enter new data(Press Enter to keep unchanged):");
             System.out.print("Movie title ["+ movie.getTitle() +"]:");
-            String title = scanner.nextLine();
-            if (title!=null);//enter new title
-            movie.setTitle(title);
+            String title2 = scanner.nextLine();
+            if (title2!=null);//enter new title
+            movie.setTitle(title2);
             System.out.print("Director ["+ movie.getDirector() +"]:");
             String director = scanner.nextLine();
             if (director!=null);//enter new director
@@ -283,12 +289,46 @@ public class MovieManager {
             System.out.println("Invalid sequence!");
         }
     }
+
+    //6.show the data by ranking level
+
+    private void showDataByRankingLevel() {
+        System.out.println("\n╔════════════════════════════════════════════════════╗");
+        System.out.println("║                   Ranking level                    ║");
+        System.out.println("╠════════════════════════════════════════════════════╣");
+        System.out.println("║ 1. ★★★★★ Masterpiece (>=9.0)                     ║");
+        System.out.println("║ 2. ★★★★☆ Excellent (8.0-8.9)                     ║");
+        System.out.println("║ 3. ★★★☆☆ Good (7.0-7.9)                          ║");
+        System.out.println("║ 4. ★★☆☆☆ Average (6.0-6.9)                       ║");
+        System.out.println("║ 5. ★☆☆☆☆ Poor (<=6.0)                            ║");
+        System.out.println("║ 0. ↩️  Back to main menu                           ║");
+        System.out.println("╚════════════════════════════════════════════════════╝");
+        System.out.print("\nPlease chose the ranking level: ");
+        int choice3 = scanner.nextInt();
+        scanner.nextLine();
+        if (choice3 ==  0)return;
+        System.out.println("=".repeat(50));
+        boolean found = false;
+        for (int i = 0; i < count; i++) {
+            Movie movie = movies[i];
+            double rating = movie.getRating();
+            String rankingLevel = movie.getRatingLevel(rating);
+            System.out.println("[#"+ (i+1) +"]"+movie.toString());
+            found = true;
+        }
+       if (!found){
+           System.out.println("There is no such movie");
+       }
+    }
+
+
+    //7.rank the movie by rating
+
     private void showRatingRanking() {
         if (count == 0) {
             System.out.println("No movies to rank!");
             return;
         }
-
 
         Movie[] rankedMovies = new Movie[count];
         System.arraycopy(movies, 0, rankedMovies, 0, count);
@@ -298,7 +338,6 @@ public class MovieManager {
 
             return Double.compare(m2.getRating(), m1.getRating());
         });
-
 
         System.out.println("\n=== Movie Rating Ranking (High to Low) ===");
         for (int i = 0; i < rankedMovies.length; i++) {
@@ -313,15 +352,8 @@ public class MovieManager {
             );
         }
     }
-    private void showStatistics() {
 
 
-        // Iterate through the movies collection and print the full data of all movies
-        System.out.println("Complete information of all movies：");
-        for (Movie movie : movies) {
-            System.out.println(movie);
-        }
-    }
 
 
 }

@@ -79,7 +79,7 @@ public class Movie {
         return String.format("《%s》(%d) - director:%s - rating:%.1f", this.title, this.year, this.director, this.rating);
     }
 
-    public String getRatingLevel() {
+    public String getRatingLevel(double rating) {
         if (this.rating >= (double)9.0F) {
             return "Masterpiece";
         } else if (this.rating >= (double)8.0F) {
