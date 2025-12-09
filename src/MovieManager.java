@@ -124,6 +124,7 @@ public class MovieManager {
         String review = scanner.nextLine();
         Movie newMovie = new Movie(title1,director,year,rating,genre,review);
         addMovie.add(newMovie);
+        count++;
     }
 
     //3.search movies
