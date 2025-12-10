@@ -91,7 +91,7 @@ public class Movie {
         } else if (this.rating >= 7.0) {
             return 3;
         } else {
-            return this.rating >= 6.0 ? 2 : 1;
+            return this.rating >= 6.0 ? 4 : 5;
         }
 
     }

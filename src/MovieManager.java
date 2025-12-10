@@ -274,6 +274,7 @@ public class MovieManager {//array
         System.out.println("╚════════════════════════════════════════════════════╝");
         System.out.println("Please choose your search method");
         int choice2 = scanner.nextInt();
+        scanner.nextLine();
         if (choice2 == 0) return;
         System.out.print("\nPlease enter the keyword");
         String keyword = scanner.nextLine().toLowerCase();
@@ -284,33 +285,33 @@ public class MovieManager {//array
             case 1://title
                 for (int i = 0; i < addMovie.size(); i++) {
                     if (addMovie.get(i).getTitle().toLowerCase().contains(keyword)) {//search the title which contains keyword
-                        System.out.println("[#" + (i + 1) + "]" + addMovie.toString());
+                        System.out.println("[" + (i + 1) + "]" + addMovie.get(i));
                         found = true;
+                    }else {
+                        System.out.println("No relevant movies here"); //if there is no movie data relative to the keyword
+                        return;
                     }
-                }
-                if (!found) {
-                    System.out.println("No relevant movies here"); //if there is no movie data relative to the keyword
-                    return;
+
                 }
                 break;
 
             case 2://director
                 for (int i = 0; i < addMovie.size(); i++) {
                     if (addMovie.get(i).getDirector().toLowerCase().contains(keyword)) {
-                        System.out.println("[#" + (i + 1) + "]" + addMovie.toString());
+                        System.out.println("[" + (i + 1) + "]" + addMovie.get(i));
                         found = true;
+                    }else {
+                        System.out.println("No relevant movies here"); //if there is no movie data relative to the keyword
+                        return;
                     }
                 }
-                if (!found) {
-                    System.out.println("No relevant movies here"); //if there is no movie data relative to the keyword
-                    return;
-                }
+
                 break;
 
             case 3://genre
                 for (int i = 0; i < addMovie.size(); i++) {
                     if (addMovie.get(i).getGenre().toLowerCase().contains(keyword)) {
-                        System.out.println("[#" + (i + 1) + "]" + addMovie.toString());
+                        System.out.println("[" + (i + 1) + "]" + addMovie.get(i));
                         found = true;
                     }else {
                         System.out.println("No relevant movies here"); //if there is no movie data relative to the keyword
@@ -470,18 +471,21 @@ public class MovieManager {//array
         int choice3 = scanner.nextInt();
         scanner.nextLine();
         if (choice3 == 0) return;
-        System.out.println("=".repeat(25));
+        boolean found = false;
+        System.out.println("=".repeat(50));
         for (int i = 0; i < addMovie.size(); i++) {
-            Movie movie = new Movie();
             double rating = addMovie.get(i).getRating();
-            int Level = movie.getRatingLevel(rating);
+            int Level = addMovie.get(i).getRatingLevel(rating);
             if (Level == choice3) {
-                System.out.println("[#" + (i + 1) + "]" + movie.toString());
-            } else {
-                System.out.println("There is no such movie");
-                System.out.println("=".repeat(25));
+                System.out.println("[" + (i + 1) + "]" + addMovie.get(i));
+                found = true;
             }
-            return;
+        }
+        if (!found){
+            System.out.println("There is no such movie");
+            System.out.println("=".repeat(50));
+        }else {
+            System.out.println("=".repeat(50));
         }
 
 
