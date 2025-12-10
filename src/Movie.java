@@ -1,7 +1,6 @@
 //
 // Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
+// (powered by Fer
 
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -80,15 +79,15 @@ public class Movie {
     }
 
     public String toString() {
-        return String.format("\n《%s》(%d) - director:%s - rating:%.1f", this.title, this.year, this.director, this.rating);
+        return String.format("《%s》(%d) - director:%s - rating:%.1f", this.title, this.year, this.director, this.rating);
     }
 
 
     public int getRatingLevel(double rating) {
         if (this.rating >= 9.0) {
-            return 5;
+            return 1;
         } else if (this.rating >= 8.0) {
-            return 4;
+            return 2;
         } else if (this.rating >= 7.0) {
             return 3;
         } else {

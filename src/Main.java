@@ -2,12 +2,13 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args){
+
         System.out.println("╔════════════════════════════════════════════════════╗");
         System.out.println("║                                                    ║");
         System.out.println("║       Welcome to Douban Movie Management System    ║");
         System.out.println("║                                                    ║");
         System.out.println("╚════════════════════════════════════════════════════╝");
-        System.out.println("Please log in first!");
+        //System.out.println("Please log in first!");
         /*Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter your username:");
         String username = scanner.nextLine();
@@ -24,12 +25,12 @@ public class Main {
 
         } else {
             System.out.println("Wrong account,try please again");}*/
-            //haha,i made a commit
-            //Create movie manager and display menu
-            MovieManager manager = new MovieManager();
-            manager.initializeSimpleMovies();
-            manager.showMainMenu();
-            //test messages:嗨害嗨，来了奥
+        //haha,i made a commit
+        //Create movie manager and display menu
+        MovieManager manager = new MovieManager();
+        manager.initializeSimpleMovies();
+        manager.showMainMenu();
+        //test messages:嗨害嗨，来了奥
 
 
     }
@@ -39,4 +40,3 @@ public class Main {
 
 
 }
-
