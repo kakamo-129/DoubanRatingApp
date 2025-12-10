@@ -155,7 +155,6 @@ public class MovieManager {//array
                     System.out.println("No relevant movies here"); //if there is no movie data relative to the keyword
                     return;
                 }
-                System.out.println("=".repeat(50));
                 break;
 
             case 2://director
@@ -169,7 +168,6 @@ public class MovieManager {//array
                     System.out.println("No relevant movies here"); //if there is no movie data relative to the keyword
                     return;
                 }
-                System.out.println("=".repeat(50));
                 break;
 
             case 3://genre
@@ -177,13 +175,11 @@ public class MovieManager {//array
                     if (addMovie.get(i).getGenre().toLowerCase().contains(keyword)) {
                         System.out.println("[" + (i + 1) + "]" + addMovie.get(i));
                         found = true;
+                    }else {
+                        System.out.println("No relevant movies here"); //if there is no movie data relative to the keyword
+                        return;
                     }
                 }
-                if (!found) {
-                    System.out.println("No relevant movies here"); //if there is no movie data relative to the keyword
-                    return;
-                }
-                System.out.println("=".repeat(50));
                 break;
 
             case 4://rating
@@ -196,17 +192,16 @@ public class MovieManager {//array
                                 System.out.println("[" + (i + 1) + "]" + addMovie.get(i));
                                 found = true;
                                 judgement1 = true;
+                            }else{
+                                System.out.println("No relevant movies here"); //if there is no movie data relative to the keyword
+                                return;
                             }
                         }
                     } catch (NumberFormatException e) {//check whether the input rating data is correct
                         System.out.println("Please enter the correct rating number!");
                         keyword = scanner.nextLine();
                     }
-                    if (!found) {
-                        System.out.println("No relevant movies here"); //if there is no movie data relative to the keyword
-                        return;
-                    }
-                    System.out.println("=".repeat(50));
+
                 }
                 break;
 
@@ -220,18 +215,15 @@ public class MovieManager {//array
                                 System.out.println("[" + (i + 1) + "]" + addMovie.get(i));
                                 found = true;
                                 judgement2 = true;
+                            }else {
+                                System.out.println("No relevant movies here"); //if there is no movie data relative to the keyword
+                                return;
                             }
-
                         }
                     } catch (NumberFormatException e) {
                         System.out.println("Please enter the correct year number!(0 to cancel)");//check whether the input year data is correct
                         keyword = scanner.nextLine();
                     }
-                    if (!found) {
-                        System.out.println("No relevant movies here"); //if there is no movie data relative to the keyword
-                        return;
-                    }
-                    System.out.println("=".repeat(50));
                 }
             break;
 
