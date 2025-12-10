@@ -9,7 +9,7 @@ public class Main {
         System.out.println("║                                                    ║");
         System.out.println("╚════════════════════════════════════════════════════╝");
         //System.out.println("Please log in first!");
-        /*Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter your username:");
         String username = scanner.nextLine();
         System.out.println("Please enter your password:");
@@ -24,7 +24,7 @@ public class Main {
             }
 
         } else {
-            System.out.println("Wrong account,try please again");}*/
+            System.out.println("Wrong account,try please again");}
         //haha,i made a commit
         //Create movie manager and display menu
         MovieManager manager = new MovieManager();
