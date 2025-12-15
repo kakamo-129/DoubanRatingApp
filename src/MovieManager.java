@@ -408,7 +408,7 @@ public class MovieManager {//array
             Movie movie = addMovie.get(index3 - 1);
             System.out.println("\nCurrent movie data:");
             System.out.println(addMovie.get(index3 - 1));
-            System.out.println("\nPlease enter new data(Press Enter to keep unchanged):");
+            System.out.println("\nPlease enter new data:");
             System.out.print("Movie title [" + movie.getTitle() + "]:");
             String title2 = scanner.nextLine();
             if (title2 != null) ;//enter new title
