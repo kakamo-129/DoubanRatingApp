@@ -2,6 +2,18 @@ import javax.swing.JOptionPane;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+
+
+
+
 
 public class MovieManager {//array
     private Scanner scanner;
@@ -10,6 +22,22 @@ public class MovieManager {//array
 
     public MovieManager() {
         scanner = new Scanner(System.in);
+    }
+    @SuppressWarnings("unchecked")
+    public void load() throws Exception {
+        //list of classes that you wish to include in the serialisation, separated by a comma
+        Class<?>[] classes = new Class[] { Movie.class };
+
+        //setting up the xstream object with default security and the above classes
+        XStream xstream = new XStream(new DomDriver());
+        XStream.setupDefaultSecurity(xstream);
+        xstream.allowTypes(classes);
+
+        try (FileReader fileReader = new FileReader("products.xml");
+             ObjectInputStream ois = xstream.createObjectInputStream(fileReader)) {
+            ArrayList<Movie> addMovie = (ArrayList<Movie>) ois.readObject();
+        }
+
     }
 
     //add some films data in advance
@@ -47,6 +75,8 @@ public class MovieManager {//array
                     "5. Modify movie information",
                     "6. Show movie data by ranking level",
                     "7. Rating ranking list",
+                    "8.Save the movies",
+                    "9.Load the movies",
                     "0. Log out"
             };
 
@@ -498,4 +528,7 @@ public class MovieManager {//array
 
 
     }
+}
+
+void main() {
 }
