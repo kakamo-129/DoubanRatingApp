@@ -1,5 +1,15 @@
 import javax.swing.JOptionPane;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -35,6 +45,8 @@ public class Main {
                         "Success",
                         JOptionPane.INFORMATION_MESSAGE
                 );
+
+
             } else {
                 JOptionPane.showMessageDialog(
                         null,
@@ -52,12 +64,23 @@ public class Main {
             );
         }
 
-        // 5. 后续电影管理逻辑不变
-        MovieManager manager = new MovieManager();
-        manager.initializeSimpleMovies();
-        manager.showMainMenu();
-    }
 
 
 
-}
+
+                javax.swing.SwingUtilities.invokeLater(() -> {
+
+                    MovieManager movieManager = new MovieManager();
+
+                    movieManager.showMainMenu();
+                });
+            }
+        }
+
+
+
+
+
+
+
+
